@@ -1,43 +1,28 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const propertyController = require('../controllers/propertyController');
-const ensureAuthenticated = require('../middleware/auth');
-
 const router = express.Router();
+const propertyController = require('../controllers/propertyController');
+const landlordController = require('../controllers/landlordController');
+const { ensureLandlordOrAgent, ensureAuthenticated } = require('../middleware/authMiddleware');
+const { uploadPropertyImages } = require('../middleware/uploadMiddleware');
 
-const uploadDir = path.join(__dirname, '../public/uploads/properties');
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const safeName = `${Date.now()}-${file.originalname.replace(/\s+/g, '-')}`;
-    cb(null, safeName);
-  },
-});
+// Public seeker routes (NO LOGIN REQUIRED)
+router.get('/', propertyController.renderHome);
+router.get('/properties', propertyController.searchProperties);
+router.get('/properties/:id', propertyController.getPropertyDetails);
 
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-    files: 10,
-  },
-  fileFilter: (req, file, cb) => {
-    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
-    if (allowed.includes(file.mimetype)) {
-      cb(null, true);
-      return;
-    }
+// Landlord portal routes (AUTHENTICATED LANDLORD/AGENT)
+router.get('/landlord/dashboard', ensureLandlordOrAgent, landlordController.renderDashboard);
+router.get('/landlord/properties', ensureLandlordOrAgent, propertyController.listLandlordProperties);
+router.get('/landlord/properties/add', ensureLandlordOrAgent, propertyController.renderAddProperty);
+router.post('/landlord/properties', ensureLandlordOrAgent, uploadPropertyImages.array('images', 10), propertyController.createProperty);
+router.get('/landlord/properties/edit/:id', ensureLandlordOrAgent, propertyController.renderEditProperty);
+router.post('/landlord/properties/edit/:id', ensureLandlordOrAgent, uploadPropertyImages.array('images', 10), propertyController.updateProperty);
+router.post('/landlord/properties/delete/:id', ensureLandlordOrAgent, propertyController.deleteProperty);
+router.get('/landlord/properties/preview', ensureLandlordOrAgent, propertyController.renderPreview);
 
-    cb(new Error('Only JPG, JPEG, PNG, and WEBP images are allowed.'));
-  },
-});
-
-router.get('/landlord/properties', ensureAuthenticated, propertyController.listProperties);
-router.get('/landlord/properties/add', ensureAuthenticated, propertyController.renderAddProperty);
-router.get('/landlord/properties/edit/:id', ensureAuthenticated, propertyController.renderEditProperty);
-router.get('/landlord/properties/preview', ensureAuthenticated, propertyController.renderPreview);
-router.post('/landlord/properties', ensureAuthenticated, upload.array('images', 10), propertyController.createProperty);
+// Notifications
+router.get('/landlord/notifications', ensureLandlordOrAgent, landlordController.renderNotifications);
+router.post('/landlord/notifications/:id/read', ensureLandlordOrAgent, landlordController.markNotificationRead);
+router.post('/landlord/notifications/read-all', ensureLandlordOrAgent, landlordController.markAllNotificationsRead);
 
 module.exports = router;

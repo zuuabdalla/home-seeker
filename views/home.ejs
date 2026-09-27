@@ -4,41 +4,347 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #eff6ff, #f8fafc);
-        color: #111827;
-      }
-      .hero {
-        max-width: 960px;
-        margin: 80px auto;
-        padding: 40px 28px;
-        text-align: center;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 12px 28px rgba(15,23,42,.08);
-      }
-      h1 { font-size: 3rem; margin-bottom: 12px; }
-      p { color: #475569; font-size: 1.1rem; }
-      a {
-        display: inline-block;
-        margin-top: 18px;
-        text-decoration: none;
-        background: #1d4ed8;
-        color: white;
-        padding: 12px 22px;
-        border-radius: 12px;
-        font-weight: 700;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/home.css" />
   </head>
   <body>
-    <div class="hero">
-      <h1>HomeFinder</h1>
-      <p>Find a Place You Can Call Home</p>
-      <a href="/landlord/properties/add">Go to Landlord Add Property</a>
-    </div>
+    <header class="site-header">
+      <div class="container navbar">
+        <div class="brand" aria-label="HomeFinder logo">
+          <div class="brand-mark">H</div>
+          <span>HomeFinder</span>
+        </div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#">Home</a>
+          <a href="#">Properties</a>
+          <a href="#">Services</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="nav-button" type="button">List Property</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1>FIND A PLACE<br />YOU CAN CALL HOME</h1>
+            <p>
+              Discover verified houses, apartments and properties in locations that fit your lifestyle and budget.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#properties" class="hero-button">Explore Properties</a>
+            </div>
+          </div>
+
+          <div class="hero-search" aria-label="Property search form">
+            <div class="search-field">
+              <span class="icon">📍</span>
+              <div>
+                <div class="label">Location</div>
+                <input type="text" value="Nairobi" aria-label="Location" />
+              </div>
+            </div>
+
+            <div class="search-field">
+              <span class="icon">🏠</span>
+              <div>
+                <div class="label">Property Type</div>
+                <select aria-label="Property type">
+                  <option>Apartment</option>
+                  <option>House</option>
+                  <option>Bedsitter</option>
+                  <option>Townhouse</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="search-field">
+              <span class="icon">💰</span>
+              <div>
+                <div class="label">Price</div>
+                <select aria-label="Price range">
+                  <option>KSh 20,000 - 40,000</option>
+                  <option>KSh 40,000 - 80,000</option>
+                  <option>KSh 80,000+</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="search-button" type="button">SEARCH</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Why HomeFinder?</h2>
+          </div>
+
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">🔎</div>
+              <h3>Easy Search</h3>
+              <p>Find houses easily and compare options that fit your needs.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">✓</div>
+              <h3>Verified Listings</h3>
+              <p>More trustworthy property information for peace of mind.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">📍</div>
+              <h3>Smart Maps</h3>
+              <p>Find properties by location and discover nearby essentials.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="properties">
+        <div class="container">
+          <div class="section-head">
+            <h2>Featured Properties</h2>
+          </div>
+
+          <div class="featured-grid">
+            <article class="property-card">
+              <div class="image-wrap">
+                <span class="featured-badge">⭐ FEATURED</span>
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80" alt="2 Bedroom apartment" />
+              </div>
+              <div class="card-body">
+                <div class="card-top">
+                  <div class="price">KSh 25,000</div>
+                  <span class="meta-pill">For Rent</span>
+                </div>
+                <h3>2 Bedroom Apartment</h3>
+                <div class="location-row">📍 Nairobi, Kenya</div>
+                <div class="stats-row">
+                  <span>🛏 2 Beds</span>
+                  <span>🛁 2 Baths</span>
+                </div>
+                <button class="card-button" type="button">View House</button>
+              </div>
+            </article>
+
+            <article class="property-card">
+              <div class="image-wrap">
+                <span class="featured-badge">⭐ FEATURED</span>
+                <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" alt="3 Bedroom house" />
+              </div>
+              <div class="card-body">
+                <div class="card-top">
+                  <div class="price">KSh 35,000</div>
+                  <span class="meta-pill">For Rent</span>
+                </div>
+                <h3>3 Bedroom House</h3>
+                <div class="location-row">📍 Mombasa, Kenya</div>
+                <div class="stats-row">
+                  <span>🛏 3 Beds</span>
+                  <span>🛁 3 Baths</span>
+                </div>
+                <button class="card-button" type="button">View House</button>
+              </div>
+            </article>
+
+            <article class="property-card">
+              <div class="image-wrap">
+                <span class="featured-badge">⭐ FEATURED</span>
+                <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80" alt="Modern apartment" />
+              </div>
+              <div class="card-body">
+                <div class="card-top">
+                  <div class="price">KSh 20,000</div>
+                  <span class="meta-pill">For Rent</span>
+                </div>
+                <h3>Modern Apartment</h3>
+                <div class="location-row">📍 Kisumu, Kenya</div>
+                <div class="stats-row">
+                  <span>🛏 2 Beds</span>
+                  <span>🛁 2 Baths</span>
+                </div>
+                <button class="card-button" type="button">View House</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="center-action">
+            <button class="secondary-button" type="button">VIEW ALL PROPERTIES</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Our Services</h2>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-box">
+              <div class="service-icon">🏠</div>
+              <h3>Property Search</h3>
+              <p>Search homes and apartments by location, budget, and type.</p>
+            </article>
+
+            <article class="service-box">
+              <div class="service-icon">📢</div>
+              <h3>Property Listing</h3>
+              <p>Landlords can list verified properties for potential tenants.</p>
+            </article>
+
+            <article class="service-box">
+              <div class="service-icon">🗺</div>
+              <h3>Location Search</h3>
+              <p>Explore nearby schools, hospitals, transport and amenities.</p>
+            </article>
+
+            <article class="service-box">
+              <div class="service-icon">🔐</div>
+              <h3>Verified Homes</h3>
+              <p>Trust in listings reviewed for accuracy and legitimacy.</p>
+            </article>
+
+            <article class="service-box">
+              <div class="service-icon">🤝</div>
+              <h3>Contact Landlords</h3>
+              <p>Reach out directly and ask questions quickly and easily.</p>
+            </article>
+
+            <article class="service-box">
+              <div class="service-icon">⭐</div>
+              <h3>Featured Homes</h3>
+              <p>Promoted properties gain more visibility to the right tenants.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>How HomeFinder Works</h2>
+          </div>
+
+          <div class="steps-row">
+            <article class="step-card">
+              <div class="step-number">01</div>
+              <h3>Search Houses</h3>
+              <p>Search without creating an account and filter listings by your needs.</p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">02</div>
+              <h3>View Property</h3>
+              <p>Check photos, price, location and amenities before contacting a landlord.</p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">03</div>
+              <h3>Contact Landlord</h3>
+              <p>Fill in a simple contact form and connect quickly with property owners.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Find Homes Near You</h2>
+          </div>
+
+          <div class="location-cta">
+            <div class="map-card" aria-label="Map showing nearby locations">
+              <span class="map-pin pin-1"></span>
+              <span class="map-pin pin-2"></span>
+              <span class="map-pin pin-3"></span>
+              <span class="map-pin pin-4"></span>
+            </div>
+            <p class="map-caption">Find nearby schools, hospitals, supermarkets and more.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="landlord-cta">
+            <h2>Are you a landlord?</h2>
+            <p>List your property and connect with potential tenants.</p>
+            <a href="/landlord/properties/add" class="cta-button">LIST YOUR PROPERTY</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>About Us</h2>
+          </div>
+
+          <div class="about-box">
+            <p>
+              HomeFinder makes house hunting easier, faster and more convenient by connecting house seekers directly with landlords and property agents.
+            </p>
+            <a href="#" class="secondary-button">LEARN MORE</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-brand">HomeFinder</div>
+            <p>Find Your Home With Confidence</p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>Home</li>
+              <li>Properties</li>
+              <li>About Us</li>
+              <li>Contact</li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li>Search</li>
+              <li>Listing</li>
+              <li>Maps</li>
+              <li>Verification</li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <ul>
+              <li>Nairobi</li>
+              <li>Kenya</li>
+              <li>Email</li>
+              <li>Phone</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">© 2026 HomeFinder. All Rights Reserved.</div>
+      </div>
+    </footer>
   </body>
 </html>
