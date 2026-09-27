@@ -56,7 +56,10 @@ app.get('/', (req, res) => {
     return res.redirect('/landlord/properties/add');
   }
 
-  res.render('home', { title: 'HomeFinder | Find a Place You Can Call Home' });
+  res.render('home', {
+    title: 'HomeFinder | Find a Place You Can Call Home',
+    user: req.session.user || null,
+  });
 });
 
 app.use(propertyRoutes);

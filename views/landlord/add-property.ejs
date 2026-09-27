@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> | HomeFinder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/add-property.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark">H</div>
+          <div>
+            <div class="brand-name">HomeFinder</div>
+            <small>Landlord Portal</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Sidebar navigation">
+          <a href="#" class="nav-item"><span class="nav-icon">◫</span> Dashboard</a>
+          <a href="#" class="nav-item"><span class="nav-icon">▣</span> My Properties</a>
+          <a href="#" class="nav-item active"><span class="nav-icon">＋</span> Add Property</a>
+          <a href="#" class="nav-item"><span class="nav-icon">◌</span> Inquiries</a>
+          <a href="#" class="nav-item"><span class="nav-icon">✉</span> Messages</a>
+          <a href="#" class="nav-item"><span class="nav-icon">◔</span> Payments</a>
+          <a href="#" class="nav-item"><span class="nav-icon">◍</span> Profile</a>
+          <a href="#" class="nav-item"><span class="nav-icon">⚙</span> Settings</a>
+          <a href="#" class="nav-item logout"><span class="nav-icon">⇠</span> Logout</a>
+        </nav>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">☰</button>
+            <div class="breadcrumb">Dashboard / Properties / <strong>Add Property</strong></div>
+          </div>
+
+          <div class="topbar-actions">
+            <button class="icon-button" aria-label="Notifications">🔔</button>
+            <div class="profile-chip">
+              <div class="avatar">AK</div>
+              <div>
+                <div class="user-name"><%= user.name %></div>
+                <small>Landlord</small>
+              </div>
+            </div>
+            <button class="dropdown-button" aria-label="Open account menu">▾</button>
+          </div>
+        </header>
+
+        <section class="page-header card-soft">
+          <div>
+            <h1>Add New Property</h1>
+            <p>List your property on HomeFinder and connect with potential tenants.</p>
+          </div>
+
+          <div class="progress-steps" aria-label="Property listing progress">
+            <span class="step active">01 Property Details</span>
+            <span class="step">02 Location</span>
+            <span class="step">03 Amenities</span>
+            <span class="step">04 Photos</span>
+            <span class="step">05 Review</span>
+          </div>
+        </section>
+
+        <form id="propertyForm" class="property-form" method="POST" action="/landlord/properties" enctype="multipart/form-data" novalidate>
+          <div class="content-grid">
+            <div class="left-column">
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Property Information</h2>
+                </div>
+
+                <div class="form-grid two-col">
+                  <div class="field full-width">
+                    <label for="title">Property Title</label>
+                    <input id="title" name="title" type="text" placeholder="Spacious 2 Bedroom Apartment" />
+                    <small class="error-message" data-error-for="title"></small>
+                  </div>
+
+                  <div class="field full-width">
+                    <label for="property_type">Property Type</label>
+                    <select id="property_type" name="property_type">
+                      <option value="">Select property type</option>
+                      <option>Apartment</option>
+                      <option>Bedsitter</option>
+                      <option>Studio</option>
+                      <option>Maisonette</option>
+                      <option>Bungalow</option>
+                      <option>Townhouse</option>
+                      <option>House</option>
+                      <option>Commercial</option>
+                    </select>
+                    <small class="error-message" data-error-for="property_type"></small>
+                  </div>
+
+                  <div class="field full-width">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="6" placeholder="Describe your property, its features, surroundings and anything potential tenants should know."></textarea>
+                    <small class="error-message" data-error-for="description"></small>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Price &amp; Features</h2>
+                </div>
+
+                <div class="form-grid three-col">
+                  <div class="field">
+                    <label for="price">Monthly Rent (KSh)</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">KSh</span>
+                      <input id="price" name="price" type="number" min="0" step="500" placeholder="25000" />
+                    </div>
+                    <small class="error-message" data-error-for="price"></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="bedrooms">Bedrooms</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">⌂</span>
+                      <input id="bedrooms" name="bedrooms" type="number" min="0" value="2" />
+                    </div>
+                    <small class="error-message" data-error-for="bedrooms"></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="bathrooms">Bathrooms</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">◌</span>
+                      <input id="bathrooms" name="bathrooms" type="number" min="0" value="2" />
+                    </div>
+                    <small class="error-message" data-error-for="bathrooms"></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="property_size">Property Size</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">▭</span>
+                      <input id="property_size" name="property_size" type="number" min="0" placeholder="95" />
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="size_unit">Unit</label>
+                    <select id="size_unit" name="size_unit">
+                      <option value="sq_m">Square metres</option>
+                      <option value="sq_ft">Square feet</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="furnished">Furnished</label>
+                    <select id="furnished" name="furnished">
+                      <option>Furnished</option>
+                      <option>Unfurnished</option>
+                      <option>Semi-Furnished</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Property Location</h2>
+                </div>
+
+                <div class="form-grid two-col">
+                  <div class="field">
+                    <label for="county">County</label>
+                    <select id="county" name="county">
+                      <option value="">Select county</option>
+                      <option>Nairobi</option>
+                      <option>Mombasa</option>
+                      <option>Kisumu</option>
+                      <option>Nakuru</option>
+                      <option>Eldoret</option>
+                      <option>Kajiado</option>
+                    </select>
+                    <small class="error-message" data-error-for="county"></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="town">Town</label>
+                    <input id="town" name="town" type="text" placeholder="Westlands" />
+                    <small class="error-message" data-error-for="town"></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="area">Estate/Area</label>
+                    <input id="area" name="area" type="text" placeholder="Parklands" />
+                  </div>
+
+                  <div class="field">
+                    <label for="address">Street/Address</label>
+                    <input id="address" name="address" type="text" placeholder="22 Chiromo Road" />
+                    <small class="error-message" data-error-for="address"></small>
+                  </div>
+                </div>
+
+                <div class="map-wrap">
+                  <div class="map-toolbar">
+                    <div class="map-search">
+                      <input id="mapSearch" type="text" placeholder="Search for location" />
+                      <button type="button" id="searchLocationBtn">Search</button>
+                    </div>
+                  </div>
+
+                  <div id="propertyMap" class="property-map" aria-label="Property map"></div>
+
+                  <div class="map-coordinates">
+                    <div class="coord-box">
+                      <span>Latitude</span>
+                      <strong id="latValue">-1.2858</strong>
+                      <input type="hidden" id="latitude" name="latitude" value="-1.2858" />
+                    </div>
+                    <div class="coord-box">
+                      <span>Longitude</span>
+                      <strong id="lngValue">36.8162</strong>
+                      <input type="hidden" id="longitude" name="longitude" value="36.8162" />
+                    </div>
+                  </div>
+
+                  <p class="map-note">Your exact location helps house seekers find your property and nearby facilities.</p>
+
+                  <div class="nearby-grid">
+                    <p>Nearby:</p>
+                    <div class="nearby-pills">
+                      <span>Schools</span>
+                      <span>Hospitals</span>
+                      <span>Supermarkets</span>
+                      <span>Shopping centres</span>
+                      <span>Public transport</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Property Amenities</h2>
+                </div>
+
+                <div class="amenity-grid" id="amenityGrid">
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Parking" /> <span>Parking</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Wi-Fi" /> <span>Wi-Fi</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Reliable Water" /> <span>Reliable Water</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Electricity" /> <span>Electricity</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Security" /> <span>Security</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="CCTV" /> <span>CCTV</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="24/7 Security" /> <span>24/7 Security</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Borehole" /> <span>Borehole</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Balcony" /> <span>Balcony</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Garden" /> <span>Garden</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Swimming Pool" /> <span>Swimming Pool</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Gym" /> <span>Gym</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Lift/Elevator" /> <span>Lift/Elevator</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Laundry Area" /> <span>Laundry Area</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Backup Generator" /> <span>Backup Generator</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Gated Community" /> <span>Gated Community</span></label>
+                  <label class="amenity-card"><input type="checkbox" name="amenities" value="Children's Playground" /> <span>Children's Playground</span></label>
+                </div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Property Photos</h2>
+                </div>
+
+                <p class="muted-text">Upload clear photos of your property. Good-quality photos attract more potential tenants.</p>
+
+                <div class="upload-box" id="uploadBox">
+                  <input id="imageUpload" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden />
+                  <div class="upload-content">
+                    <div class="upload-icon">⇪</div>
+                    <h3>Drag &amp; drop photos here</h3>
+                    <p>or</p>
+                    <button type="button" class="secondary-button" id="browseFilesBtn">Browse files</button>
+                    <small>JPG, JPEG, PNG, WEBP · Max 5MB each · Up to 10 images</small>
+                  </div>
+                </div>
+
+                <div id="imageGrid" class="image-grid" aria-live="polite"></div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Property Availability</h2>
+                </div>
+
+                <div class="form-grid two-col">
+                  <div class="field">
+                    <label for="availability_status">Availability Status</label>
+                    <select id="availability_status" name="availability_status">
+                      <option value="">Select status</option>
+                      <option>Available</option>
+                      <option>Occupied</option>
+                      <option>Available Soon</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="available_from">Available From</label>
+                    <input id="available_from" name="available_from" type="date" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="minimum_rental_period">Minimum Rental Period</label>
+                  <input id="minimum_rental_period" name="minimum_rental_period" type="text" placeholder="e.g. 6 months" />
+                </div>
+              </section>
+
+              <section class="panel card-soft">
+                <div class="panel-header">
+                  <h2>Additional Information</h2>
+                </div>
+
+                <div class="form-grid two-col">
+                  <div class="field">
+                    <label>Pet Friendly</label>
+                    <div class="inline-options">
+                      <label class="radio-pill"><input type="radio" name="pet_friendly" value="Yes" /> Yes</label>
+                      <label class="radio-pill"><input type="radio" name="pet_friendly" value="No" checked /> No</label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="suitable_for">Suitable For</label>
+                    <select id="suitable_for" name="suitable_for">
+                      <option>Families</option>
+                      <option>Students</option>
+                      <option>Professionals</option>
+                      <option>Everyone</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="parking_spaces">Parking Spaces</label>
+                    <input id="parking_spaces" name="parking_spaces" type="number" min="0" value="1" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="house_rules">House Rules</label>
+                  <textarea id="house_rules" name="house_rules" rows="4" placeholder="e.g. No smoking indoors, quiet after 10 PM, visitors allowed by appointment."></textarea>
+                </div>
+              </section>
+            </div>
+
+            <aside class="right-column">
+              <section class="panel card-soft preview-panel">
+                <div class="panel-header">
+                  <h2>Property Preview</h2>
+                </div>
+
+                <article class="property-card preview-card">
+                  <div class="card-image-wrap">
+                    <span class="featured-badge">Featured</span>
+                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80" alt="Preview property" />
+                  </div>
+                  <div class="card-body">
+                    <div class="card-topline">
+                      <span class="price">KSh <span id="previewPrice">25,000</span></span>
+                      <span class="meta-chip">For Rent</span>
+                    </div>
+                    <h3 id="previewTitle">Spacious 2 Bedroom Apartment</h3>
+                    <div class="location-line">📍 <span id="previewLocation">Westlands, Nairobi</span></div>
+                    <div class="feature-row">
+                      <span>🛏 <strong id="previewBedrooms">2</strong> Beds</span>
+                      <span>🛁 <strong id="previewBathrooms">2</strong> Baths</span>
+                    </div>
+                    <div class="amenity-row" id="previewAmenities">
+                      <span>Parking</span>
+                      <span>Wi-Fi</span>
+                      <span>Security</span>
+                    </div>
+                    <button type="button" class="preview-button">View Details</button>
+                  </div>
+                </article>
+              </section>
+
+              <section class="panel card-soft verification-panel">
+                <div class="panel-header">
+                  <h2>Verification Notice</h2>
+                </div>
+                <div class="info-box">
+                  <strong>Your property will be reviewed by HomeFinder before it becomes publicly visible.</strong>
+                  <ul>
+                    <li>Properties are reviewed for accuracy.</li>
+                    <li>False or misleading listings may be rejected.</li>
+                    <li>The landlord must provide accurate information.</li>
+                  </ul>
+                </div>
+                <label class="confirm-check">
+                  <input id="accuracy_confirmed" name="accuracy_confirmed" type="checkbox" />
+                  <span>I confirm that the information provided is accurate.</span>
+                </label>
+                <small class="error-message" data-error-for="accuracy_confirmed"></small>
+              </section>
+            </aside>
+          </div>
+
+          <div class="submit-actions">
+            <button type="button" class="secondary-button wide-btn">Save as Draft</button>
+            <button type="button" class="secondary-button wide-btn" id="previewPropertyBtn">Preview Property</button>
+            <button type="submit" class="primary-button wide-btn">Submit Property</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <div id="submitDialog" class="dialog hidden" aria-modal="true" role="dialog">
+      <div class="dialog-card">
+        <h3>Submit Property for Review?</h3>
+        <p>Your property will be submitted to the HomeFinder administration team for verification.</p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button" id="cancelSubmitBtn">Cancel</button>
+          <button type="button" class="primary-button" id="confirmSubmitBtn">Submit for Review</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="successState" class="success-state hidden" aria-live="polite">
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h2>Property Submitted Successfully</h2>
+        <p>Your property has been submitted for verification. You will be notified once it has been reviewed.</p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button">View My Properties</button>
+          <button type="button" class="primary-button">Add Another Property</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY || 'YOUR_GOOGLE_MAPS_API_KEY' %>&callback=initMap" async defer></script>
+    <script src="/js/add-property.js"></script>
+  </body>
+</html>
